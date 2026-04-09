@@ -19,12 +19,14 @@ export async function sendContactEmail(formData: FormData) {
   // For testing in Resend without a verified domain, use your account registration email here.
   const targetEmail = process.env.CONTACT_EMAIL || "eduardo@bluestarbrothers.com";
 
+  let success = false;
+
   try {
     // 1. Send the email using Resend
-    await resend.emails.send({
+    const { data, error } = await resend.emails.send({
       from: "Snoopy's Auto Care <onboarding@resend.dev>",
       to: targetEmail,
-      replyTo: email, // This allows Eduardo to just click "Reply" to answer the customer
+      replyTo: email,
       subject: `Nuevo Lead: ${name} - ${serviceType}`,
       html: `
         <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #1e293b; max-width: 600px; margin: 0 auto; border: 1px solid #e2e8f0; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);">
@@ -69,9 +71,17 @@ export async function sendContactEmail(formData: FormData) {
         </div>
       `,
     });
+
+    if (error) {
+      console.error("Resend delivery error:", error);
+    } else {
+      success = true;
+    }
   } catch (error) {
-    console.error("Email send error:", error);
+    console.error("Critical email send error:", error);
   }
 
+  // Always redirect to thank you page if we got here
+  // regardless of email success (to prevent the user from being stuck)
   redirect("/thank-you");
 }

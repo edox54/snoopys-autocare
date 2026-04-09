@@ -1,5 +1,6 @@
 "use client";
 import { useFormStatus } from "react-dom";
+import { useTransition, useRef } from "react";
 import Link from "next/link";
 import {
   Activity,
@@ -113,21 +114,36 @@ function SubmitButton() {
 }
 
 export function QuickForm() {
+  const [isPending, startTransition] = useTransition();
+  const formRef = useRef<HTMLFormElement>(null);
+
+  async function handleSubmit(formData: FormData) {
+    startTransition(async () => {
+      await sendContactEmail(formData);
+    });
+  }
+
   return (
-    <form action={sendContactEmail} className="mt-8 grid gap-4">
+    <form 
+      ref={formRef}
+      action={handleSubmit} 
+      className={`mt-8 grid gap-4 transition-opacity duration-300 ${isPending ? 'opacity-50 pointer-events-none' : 'opacity-100'}`}
+    >
       <div className="grid gap-4 sm:grid-cols-2">
         <input 
           name="name"
           type="text"
           required
-          className="h-12 rounded-2xl border border-slate-200 bg-white px-4 text-slate-900 outline-none placeholder:text-slate-400 focus:border-accent/40 transition-colors" 
+          disabled={isPending}
+          className="h-12 rounded-2xl border border-slate-200 bg-white px-4 text-slate-900 outline-none placeholder:text-slate-400 focus:border-accent/40 transition-colors disabled:bg-slate-50" 
           placeholder="Full Name" 
         />
         <input 
           name="email"
           type="email"
           required
-          className="h-12 rounded-2xl border border-slate-200 bg-white px-4 text-slate-900 outline-none placeholder:text-slate-400 focus:border-accent/40 transition-colors" 
+          disabled={isPending}
+          className="h-12 rounded-2xl border border-slate-200 bg-white px-4 text-slate-900 outline-none placeholder:text-slate-400 focus:border-accent/40 transition-colors disabled:bg-slate-50" 
           placeholder="Email Address" 
         />
       </div>
@@ -136,27 +152,31 @@ export function QuickForm() {
           name="phone"
           type="tel"
           required
-          className="h-12 rounded-2xl border border-slate-200 bg-white px-4 text-slate-900 outline-none placeholder:text-slate-400 focus:border-accent/40 transition-colors" 
+          disabled={isPending}
+          className="h-12 rounded-2xl border border-slate-200 bg-white px-4 text-slate-900 outline-none placeholder:text-slate-400 focus:border-accent/40 transition-colors disabled:bg-slate-50" 
           placeholder="Phone Number" 
         />
         <input 
           name="vehicle"
           type="text"
           required
-          className="h-12 rounded-2xl border border-slate-200 bg-white px-4 text-slate-900 outline-none placeholder:text-slate-400 focus:border-accent/40 transition-colors" 
+          disabled={isPending}
+          className="h-12 rounded-2xl border border-slate-200 bg-white px-4 text-slate-900 outline-none placeholder:text-slate-400 focus:border-accent/40 transition-colors disabled:bg-slate-50" 
           placeholder="Vehicle (Year, Make, Model)" 
         />
       </div>
       <input 
         name="service_type"
         type="text"
-        className="h-12 rounded-2xl border border-slate-200 bg-white px-4 text-slate-900 outline-none placeholder:text-slate-400 focus:border-accent/40 transition-colors" 
+        disabled={isPending}
+        className="h-12 rounded-2xl border border-slate-200 bg-white px-4 text-slate-900 outline-none placeholder:text-slate-400 focus:border-accent/40 transition-colors disabled:bg-slate-50" 
         placeholder="Service Needed (e.g. ADAS, Calibration)" 
       />
       <textarea 
         name="message"
         required
-        className="min-h-[120px] rounded-2xl border border-slate-200 bg-white px-4 py-3 text-slate-900 outline-none placeholder:text-slate-400 focus:border-accent/40 transition-colors" 
+        disabled={isPending}
+        className="min-h-[120px] rounded-2xl border border-slate-200 bg-white px-4 py-3 text-slate-900 outline-none placeholder:text-slate-400 focus:border-accent/40 transition-colors disabled:bg-slate-50" 
         placeholder="Tell us about the damage or service required..." 
       />
       

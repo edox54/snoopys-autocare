@@ -1,4 +1,5 @@
 "use client";
+import { useFormStatus } from "react-dom";
 import Link from "next/link";
 import {
   Activity,
@@ -85,18 +86,70 @@ export function InfoRow({ icon: Icon, text, href }: { icon: React.ComponentType<
   );
 }
 
+import { sendContactEmail } from "@/lib/actions";
+
+function SubmitButton() {
+  const { pending } = useFormStatus();
+  
+  return (
+    <button 
+      type="submit" 
+      disabled={pending}
+      className={`inline-flex items-center justify-center gap-2 rounded-full bg-slate-900 px-6 py-3.5 font-medium text-white transition hover:bg-slate-800 shadow-lg shadow-slate-900/10 active:scale-[0.98] ${pending ? 'opacity-70 cursor-not-allowed' : ''}`}
+    >
+      {pending ? (
+        <>
+          Sending...
+          <Clock3 className="h-4 w-4 animate-spin" />
+        </>
+      ) : (
+        <>
+          Submit Request
+          <ArrowRight className="h-4 w-4" />
+        </>
+      )}
+    </button>
+  );
+}
+
 export function QuickForm() {
   return (
-    <form className="mt-8 grid gap-4">
-      <input className="h-12 rounded-2xl border border-slate-200 bg-white px-4 text-slate-900 outline-none placeholder:text-slate-400 focus:border-accent/40 transition-colors" placeholder="Full Name" />
-      <input className="h-12 rounded-2xl border border-slate-200 bg-white px-4 text-slate-900 outline-none placeholder:text-slate-400 focus:border-accent/40 transition-colors" placeholder="Phone Number" />
-      <input className="h-12 rounded-2xl border border-slate-200 bg-white px-4 text-slate-900 outline-none placeholder:text-slate-400 focus:border-accent/40 transition-colors" placeholder="Vehicle Make / Model" />
-      <input className="h-12 rounded-2xl border border-slate-200 bg-white px-4 text-slate-900 outline-none placeholder:text-slate-400 focus:border-accent/40 transition-colors" placeholder="Service Needed" />
-      <textarea className="min-h-[120px] rounded-2xl border border-slate-200 bg-white px-4 py-3 text-slate-900 outline-none placeholder:text-slate-400 focus:border-accent/40 transition-colors" placeholder="Tell us what service you need" />
-      <button type="button" className="inline-flex items-center justify-center gap-2 rounded-full bg-slate-900 px-6 py-3.5 font-medium text-white transition hover:bg-slate-800">
-        Submit Request
-        <ArrowRight className="h-4 w-4" />
-      </button>
+    <form action={sendContactEmail} className="mt-8 grid gap-4">
+      <input 
+        name="name"
+        type="text"
+        required
+        className="h-12 rounded-2xl border border-slate-200 bg-white px-4 text-slate-900 outline-none placeholder:text-slate-400 focus:border-accent/40 transition-colors" 
+        placeholder="Full Name" 
+      />
+      <input 
+        name="phone"
+        type="tel"
+        required
+        className="h-12 rounded-2xl border border-slate-200 bg-white px-4 text-slate-900 outline-none placeholder:text-slate-400 focus:border-accent/40 transition-colors" 
+        placeholder="Phone Number" 
+      />
+      <input 
+        name="vehicle"
+        type="text"
+        required
+        className="h-12 rounded-2xl border border-slate-200 bg-white px-4 text-slate-900 outline-none placeholder:text-slate-400 focus:border-accent/40 transition-colors" 
+        placeholder="Vehicle Make / Model" 
+      />
+      <input 
+        name="service_type"
+        type="text"
+        className="h-12 rounded-2xl border border-slate-200 bg-white px-4 text-slate-900 outline-none placeholder:text-slate-400 focus:border-accent/40 transition-colors" 
+        placeholder="Service Needed (e.g. ADAS, Oil Change)" 
+      />
+      <textarea 
+        name="message"
+        required
+        className="min-h-[120px] rounded-2xl border border-slate-200 bg-white px-4 py-3 text-slate-900 outline-none placeholder:text-slate-400 focus:border-accent/40 transition-colors" 
+        placeholder="Tell us what service you need or any specific issues" 
+      />
+      
+      <SubmitButton />
     </form>
   );
 }

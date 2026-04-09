@@ -115,38 +115,49 @@ function SubmitButton() {
 export function QuickForm() {
   return (
     <form action={sendContactEmail} className="mt-8 grid gap-4">
-      <input 
-        name="name"
-        type="text"
-        required
-        className="h-12 rounded-2xl border border-slate-200 bg-white px-4 text-slate-900 outline-none placeholder:text-slate-400 focus:border-accent/40 transition-colors" 
-        placeholder="Full Name" 
-      />
-      <input 
-        name="phone"
-        type="tel"
-        required
-        className="h-12 rounded-2xl border border-slate-200 bg-white px-4 text-slate-900 outline-none placeholder:text-slate-400 focus:border-accent/40 transition-colors" 
-        placeholder="Phone Number" 
-      />
-      <input 
-        name="vehicle"
-        type="text"
-        required
-        className="h-12 rounded-2xl border border-slate-200 bg-white px-4 text-slate-900 outline-none placeholder:text-slate-400 focus:border-accent/40 transition-colors" 
-        placeholder="Vehicle Make / Model" 
-      />
+      <div className="grid gap-4 sm:grid-cols-2">
+        <input 
+          name="name"
+          type="text"
+          required
+          className="h-12 rounded-2xl border border-slate-200 bg-white px-4 text-slate-900 outline-none placeholder:text-slate-400 focus:border-accent/40 transition-colors" 
+          placeholder="Full Name" 
+        />
+        <input 
+          name="email"
+          type="email"
+          required
+          className="h-12 rounded-2xl border border-slate-200 bg-white px-4 text-slate-900 outline-none placeholder:text-slate-400 focus:border-accent/40 transition-colors" 
+          placeholder="Email Address" 
+        />
+      </div>
+      <div className="grid gap-4 sm:grid-cols-2">
+        <input 
+          name="phone"
+          type="tel"
+          required
+          className="h-12 rounded-2xl border border-slate-200 bg-white px-4 text-slate-900 outline-none placeholder:text-slate-400 focus:border-accent/40 transition-colors" 
+          placeholder="Phone Number" 
+        />
+        <input 
+          name="vehicle"
+          type="text"
+          required
+          className="h-12 rounded-2xl border border-slate-200 bg-white px-4 text-slate-900 outline-none placeholder:text-slate-400 focus:border-accent/40 transition-colors" 
+          placeholder="Vehicle (Year, Make, Model)" 
+        />
+      </div>
       <input 
         name="service_type"
         type="text"
         className="h-12 rounded-2xl border border-slate-200 bg-white px-4 text-slate-900 outline-none placeholder:text-slate-400 focus:border-accent/40 transition-colors" 
-        placeholder="Service Needed (e.g. ADAS, Oil Change)" 
+        placeholder="Service Needed (e.g. ADAS, Calibration)" 
       />
       <textarea 
         name="message"
         required
         className="min-h-[120px] rounded-2xl border border-slate-200 bg-white px-4 py-3 text-slate-900 outline-none placeholder:text-slate-400 focus:border-accent/40 transition-colors" 
-        placeholder="Tell us what service you need or any specific issues" 
+        placeholder="Tell us about the damage or service required..." 
       />
       
       <SubmitButton />

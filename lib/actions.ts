@@ -15,8 +15,9 @@ export async function sendContactEmail(formData: FormData) {
   const serviceType = formData.get("service_type") as string;
   const message = formData.get("message") as string;
 
-  // The email address provided by the user
-  const targetEmail = "eduardo@bluestarbrothers.com";
+  // The destination email is now read from environment variables for flexibility
+  // For testing in Resend without a verified domain, use your account registration email here.
+  const targetEmail = process.env.CONTACT_EMAIL || "eduardo@bluestarbrothers.com";
 
   try {
     // 1. Send the email using Resend

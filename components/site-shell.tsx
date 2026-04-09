@@ -26,8 +26,14 @@ export const useSchedule = () => React.useContext(ScheduleContext);
 
 export function ScheduleProvider({ children }: { children: React.ReactNode }) {
   const [isOpen, setIsOpen] = React.useState(false);
+  const pathname = usePathname();
   const openModal = () => setIsOpen(true);
   const closeModal = () => setIsOpen(false);
+
+  // Automatically close modal when navigating to a new page (e.g., Thank You page)
+  React.useEffect(() => {
+    setIsOpen(false);
+  }, [pathname]);
 
   return (
     <ScheduleContext.Provider value={{ openModal }}>

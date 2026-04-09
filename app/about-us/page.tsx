@@ -36,7 +36,7 @@ export default function AboutPage() {
             </p>
             <div className="mt-10 rounded-2xl border border-orange-100 bg-orange-50 p-6">
               <p className="text-sm font-semibold text-accent uppercase tracking-widest">Our Standard</p>
-              <p className="mt-2 text-xl font-medium text-slate-900 italic">"Precision isn't optional — it's the foundation of road safety."</p>
+              <p className="mt-2 text-xl font-medium text-slate-900 italic">&quot;Precision isn&apos;t optional &mdash; it&apos;s the foundation of road safety.&quot;</p>
             </div>
           </GlassCard>
         </div>

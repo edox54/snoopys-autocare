@@ -97,7 +97,7 @@ export function Header() {
     <header className="sticky top-0 z-40 border-b border-slate-100 bg-white/80 backdrop-blur-2xl">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
         <Link href="/" className="group flex items-center gap-3">
-          <Logo className="h-12" />
+          <Logo className="h-14 sm:h-16" />
           <div className="hidden sm:block">
             <p className="text-sm font-medium uppercase tracking-[0.3em] text-accent/80 leading-none">SNOOPYS</p>
             <p className="text-[10px] text-slate-400 leading-none mt-1.5 uppercase tracking-widest">Calibration Specialist</p>
@@ -183,7 +183,7 @@ export function Footer() {
     <footer className="border-t border-slate-100 bg-slate-50/80">
       <div className="mx-auto grid max-w-7xl gap-10 px-4 py-16 text-sm text-slate-500 sm:px-6 lg:grid-cols-4 lg:px-8">
         <div>
-          <Logo className="mb-6 h-16" />
+          <Logo className="mb-6 h-20" />
           <p className="mt-4 max-w-xs leading-7">Precision ADAS calibration and advanced auto care for all vehicle makes in Middle Village, NY.</p>
         </div>
         <div>

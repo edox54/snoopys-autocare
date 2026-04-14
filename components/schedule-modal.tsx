@@ -21,24 +21,24 @@ export function ScheduleModal({ isOpen, onClose }: ScheduleModalProps) {
   return (
     <AnimatePresence>
       {isOpen && (
-        <div className="fixed inset-0 z-[60] flex items-center justify-center p-4 sm:p-6">
+        <div className="fixed inset-0 z-[60] flex items-start justify-center overflow-y-auto p-4 py-8 sm:items-center sm:p-6">
           <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={onClose}
-              className="absolute inset-0 bg-slate-900/40 backdrop-blur-sm"
+              className="fixed inset-0 bg-slate-900/40 backdrop-blur-sm"
           />
           
           <motion.div
             initial={{ opacity: 0, scale: 0.95, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 20 }}
-            className="relative w-full max-w-2xl overflow-hidden rounded-[2.5rem] border border-slate-100 bg-white p-6 shadow-2xl sm:p-10"
+            className="relative w-full max-w-2xl rounded-[2.5rem] border border-slate-100 bg-white p-6 shadow-2xl sm:p-10 mb-auto sm:mb-0"
           >
             {/* Background Glows */}
-            <div className="absolute -right-20 -top-20 h-64 w-64 rounded-full bg-accent/5 blur-3xl" />
-            <div className="absolute -bottom-20 -left-20 h-64 w-64 rounded-full bg-orange-100/50 blur-3xl" />
+            <div className="absolute -right-20 -top-20 h-64 w-64 rounded-full bg-accent/5 blur-3xl pointer-events-none" />
+            <div className="absolute -bottom-20 -left-20 h-64 w-64 rounded-full bg-orange-100/50 blur-3xl pointer-events-none" />
 
             <div className="relative">
               <div className="flex items-center justify-between">

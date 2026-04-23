@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Analytics } from "@vercel/analytics/next";
 import { BUSINESS } from "@/lib/site-data";
 import { BackgroundGlow } from "@/components/shared";
 import { Footer, Header, MobileStickyCTA, ScheduleProvider, TopBar } from "@/components/site-shell";
@@ -64,6 +65,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
             <MobileStickyCTA />
           </ScheduleProvider>
         </main>
+        <Analytics />
       </body>
     </html>
   );
